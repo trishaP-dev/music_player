@@ -2,6 +2,9 @@
 
 A browser-based music player built using **HTML**, **Tailwind CSS**, and **JavaScript** with a clean, custom-designed user interface.
 
+## 🔗 Live Demo
+👉 https://neon-pastelito-c4ef87.netlify.app/
+
 ---
 
 ## ✨ Features

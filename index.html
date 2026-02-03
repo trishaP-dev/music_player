@@ -44,7 +44,7 @@
             cursor: pointer;
             border: none;
         }
-        /* Ensure the player progress (specific input) renders white across browsers */
+       
         #player-progress { accent-color: #ffffff; }
         #player-progress::-webkit-slider-runnable-track { background: #ffffff; height: 2px; border-radius: 2px; }
         #player-progress::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 8px; height: 8px; border-radius: 50%; background: #ffffff; margin-top: -3px; }
@@ -57,15 +57,13 @@
         .custom-scroll::-webkit-scrollbar-track { background: #000; }
         .custom-scroll::-webkit-scrollbar-thumb { background: #3c3b3b; }
         .custom-scroll::-webkit-scrollbar-thumb:hover { background: #7b7878; }
-        /* Replace green with bluish-gray globally */
         .text-green-500 { color: #6e737c !important; }
     </style>
 </head>
 <body class="bg-black text-white m-0 p-0 font-sans">
     <!-- Top Navigation -->
     <div class="flex items-center justify-between px-4 py-3 bg-black border-b border-gray-800 sticky top-0 z-40">
-        <img class="invert h-8" src="svgs/logo.svg" alt="Logo">
-        
+            <img class="h-8" src="svgs/music.svg" alt="logo">
         <div class="flex items-center gap-4 flex-1 ml-6">
             <div class="flex items-center justify-center w-12 h-12 bg-[#1f1f1f] rounded-full hover:bg-[#282828] cursor-pointer">
                 <img class="invert h-5" src="svgs/home.svg" alt="Home">
@@ -74,7 +72,6 @@
             <div class="flex items-center gap-3 rounded-full bg-[#1f1f1f] h-12 px-4 flex-1 max-w-sm">
                 <img class="invert h-5" src="svgs/search.svg" alt="Search">
                 <input type="text" placeholder="What do you want to play?" class="bg-transparent text-white placeholder-gray-400 text-sm flex-1 outline-none">
-                <img class="invert h-5" src="svgs/browse.svg" alt="Browse">
             </div>
         </div>
         
@@ -139,9 +136,6 @@
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-full w-full aspect-square object-cover" src="images/arijit.jpeg" alt="Arijit">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white">Arijit</h4>
                         <p class="text-sm text-gray-400">Artist</p>
@@ -149,9 +143,6 @@
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-full w-full aspect-square object-cover" src="images/pritam.jpeg" alt="Pritam">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white">Pritam</h4>
                         <p class="text-sm text-gray-400">Artist</p>
@@ -159,9 +150,6 @@
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-full w-full aspect-square object-cover" src="images/shreya.jpeg" alt="Shreya">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white">Shreya</h4>
                         <p class="text-sm text-gray-400">Artist</p>
@@ -169,9 +157,6 @@
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-full w-full aspect-square object-cover" src="images/diljit.jpeg" alt="Diljit">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white">Diljit</h4>
                         <p class="text-sm text-gray-400">Artist</p>
@@ -179,9 +164,6 @@
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-full w-full aspect-square object-cover" src="images/kk1.jpg" alt="KK">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white">KK</h4>
                         <p class="text-sm text-gray-400">Artist</p>
@@ -189,9 +171,6 @@
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-full w-full aspect-square object-cover" src="images/lata.jpeg" alt="Lata">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-full flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white">Lata Mangeshkar</h4>
                         <p class="text-sm text-gray-400">Artist</p>
@@ -204,9 +183,6 @@
                     <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group" data-audio="songs/Safarnama Video Song  Tamasha  Ranbir Kapoor, Deepika Padukone  T-Series.mp3">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/tamasha.jpeg" alt="Tamasha">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white truncate">Safarrnama</h4>
                         <p class="text-sm text-gray-400 truncate">Lucky Ali</p>
@@ -214,9 +190,6 @@
                     <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group" data-audio="songs/Sooraj Ki Bahoon Mein  Zindagi Na Milegi Dobara  Hrithik Roshan, Katrina Kaif, Farhan Akhtar.mp3">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="ZNMD">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white truncate">Zindagi Na Milegi Dobara</h4>
                         <p class="text-sm text-gray-400 truncate">Farhan Akhtar</p>
@@ -224,9 +197,6 @@
                     <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group" data-audio="songs/Dil Se Dil - Official Music Video  Sita Ramam  Vishal Chandrashekhar  Shashwat Singh  Mandar C..mp3">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/sita ramam.jpeg" alt="Sita Ramam">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white truncate">Sita Ramam</h4>
                         <p class="text-sm text-gray-400 truncate">Vishal Chandrashekhar</p>
@@ -234,9 +204,6 @@
                     <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group" data-audio="songs/Phir Le Aya Dil - Redux - BarfiPritamArijit SinghRanbirPriyankaIleana D'Cruz.mp3">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/barfi.jpeg" alt="Barfi">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white truncate">Barfi</h4>
                         <p class="text-sm text-gray-400 truncate">Pritam</p>
@@ -244,9 +211,6 @@
                     <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/hridayam.jpg" alt="Hridayam">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white truncate">Hridayam</h4>
                         <p class="text-sm text-gray-400 truncate">Hesham</p>
@@ -254,9 +218,6 @@
                     <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/ranjhana.jpg" alt="Ranjhana">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <h4 class="font-semibold text-white truncate">Ranjhana</h4>
                         <p class="text-sm text-gray-400 truncate">A.R Rahman</p>
@@ -269,45 +230,31 @@
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
+
                         </div>
                         <p class="text-sm text-gray-400 truncate">with Atif Aslim, Sachin-jigar</p>
                     </div>
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <p class="text-sm text-gray-400 truncate">with Karan Aujla, Shubh</p>
                     </div>
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <p class="text-sm text-gray-400 truncate">with A.R.Rahman, Vishal</p>
                     </div>
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <p class="text-sm text-gray-400 truncate">with Pritam, Mohit Chauhan</p>
                     </div>
                     <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
                         <div class="relative mb-4">
                             <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio">
-                            <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 rounded-lg flex items-center justify-center transition-all opacity-0 group-hover:opacity-100">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" class="w-12 h-12 text-green-500"><path fill="currentColor" d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80L0 432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg>
-                            </div>
                         </div>
                         <p class="text-sm text-gray-400 truncate">with Uttam Singh, Lata</p>
                     </div>

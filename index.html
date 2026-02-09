@@ -1,357 +1,549 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Player: Music for everyone</title>
-    <link rel="stylesheet" href="src/output.css">
+    <link rel="stylesheet" href="src/output.css" />
     <style>
-        input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            background: transparent;
-            cursor: pointer;
+      @media (max-width: 640px) {
+        .sidebar-mobile {
+          position: fixed;
+          left: 0;
+          top: 56px;
+          width: 100vw !important;
+          height: calc(100vh - 56px);
+          z-index: 50;
+          background: #121212;
+          overflow-y: auto;
+          transform: translateX(-100%);
+          transition: transform 0.3s;
         }
-        
-        input[type="range"]::-webkit-slider-track {
-            background: #ffffff;
-            height: 2px;
-            border-radius: 2px;
+        .sidebar-mobile.active {
+          transform: translateX(0);
         }
-        
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #fff;
-            cursor: pointer;
+        .main-mobile {
+          width: 100vw !important;
+          padding: 0.5rem !important;
         }
-        
-        input[type="range"]::-moz-range-track {
-            background: #ffffff;
-            height: 2px;
-            border-radius: 2px;
-            border: none;
+        #player-bar {
+          flex-direction: column !important;
+          gap: 0.5rem !important;
+          padding: 0.5rem !important;
         }
-        
-        input[type="range"]::-moz-range-thumb {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #fff;
-            cursor: pointer;
-            border: none;
+        #player-bar .flex-col {
+          min-width: 0 !important;
+          width: 100% !important;
         }
-       
-        #player-progress { accent-color: #ffffff; }
-        #player-progress::-webkit-slider-runnable-track { background: #ffffff; height: 2px; border-radius: 2px; }
-        #player-progress::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 8px; height: 8px; border-radius: 50%; background: #ffffff; margin-top: -3px; }
-        #player-progress::-moz-range-track { background: #ffffff; height: 2px; border-radius: 2px; }
-        #player-progress::-moz-range-thumb { width: 8px; height: 8px; border-radius: 50%; background: #ffffff; border: none; }
-        
-        button { padding: 0; margin: 0; font-family: inherit; }
-        
-        .custom-scroll::-webkit-scrollbar { width: 10px; }
-        .custom-scroll::-webkit-scrollbar-track { background: #000; }
-        .custom-scroll::-webkit-scrollbar-thumb { background: #3c3b3b; }
-        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #7b7878; }
-        .text-green-500 { color: #6e737c !important; }
+        #player-bar .min-w-[600px] {
+          min-width: 0 !important;
+        }
+      }
+
+      /* Chrome-specific styles */
+      input[type="range"] {
+        -webkit-appearance: none;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      input[type="range"]::-webkit-slider-track {
+        background: #ffffff;
+        height: 2px;
+        border-radius: 2px;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      #player-progress::-webkit-slider-runnable-track {
+        background: #ffffff;
+        height: 2px;
+        border-radius: 2px;
+      }
+
+      #player-progress::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ffffff;
+        margin-top: -3px;
+      }
+
+      .custom-scroll::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      .custom-scroll::-webkit-scrollbar-track {
+        background: #000;
+      }
+
+      .custom-scroll::-webkit-scrollbar-thumb {
+        background: #3c3b3b;
+      }
+
+      .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background: #7b7878;
+      }
+      
+      .player-control-icon {
+        color: #9ca3af; 
+    }
+    .control-active .player-control-icon {
+        color: #c58422; 
+    }
     </style>
-</head>
-<body class="bg-black text-white m-0 p-0 font-sans">
-    <!-- Top Navigation -->
-    <div class="flex items-center justify-between px-4 py-3 bg-black border-b border-gray-800 sticky top-0 z-40">
-            <img class="h-8" src="svgs/music.svg" alt="logo">
-        <div class="flex items-center gap-4 flex-1 ml-6">
-            <div class="flex items-center justify-center w-12 h-12 bg-[#1f1f1f] rounded-full hover:bg-[#282828] cursor-pointer">
-                <img class="invert h-5" src="svgs/home.svg" alt="Home">
-            </div>
-            
-            <div class="flex items-center gap-3 rounded-full bg-[#1f1f1f] h-12 px-4 flex-1 max-w-sm">
-                <img class="invert h-5" src="svgs/search.svg" alt="Search">
-                <input type="text" placeholder="What do you want to play?" class="bg-transparent text-white placeholder-gray-400 text-sm flex-1 outline-none">
-            </div>
+  </head>
+  <body class="bg-black text-white m-0 p-0 font-sans">
+    <div
+      class="flex items-center justify-between px-4 py-3 bg-black border-b border-gray-800 sticky top-0 z-40 sm:flex-row flex-col"
+    >
+      <div class="flex items-center gap-4 flex-1 sm:ml-6 ml-0 w-full">
+        <img class="h-8" src="svgs/music.svg" alt="logo" />
+        <div
+          class="flex items-center justify-center w-12 h-12 bg-[#1f1f1f] rounded-full hover:bg-[#282828] cursor-pointer"
+        >
+          <img class="invert h-5" src="svgs/home.svg" alt="Home" />
         </div>
-        
-        <div class="flex items-center gap-4">
-            <button class="bg-transparent text-white border border-white rounded-full px-6 py-2 text-sm font-semibold hover:text-white">Sign up</button>
-            <button class="bg-white text-black rounded-full px-6 py-2 text-sm font-semibold hover:bg-gray-200">Log in</button>
+        <div
+          class="flex items-center gap-3 rounded-full bg-[#1f1f1f] h-12 px-4 flex-1 max-w-sm"
+        >
+          <img class="invert h-5" src="svgs/search.svg" alt="Search" />
+          <input
+            type="text"
+            placeholder="What do you want to play?"
+            class="bg-transparent text-white placeholder-gray-400 text-sm flex-1 outline-none"
+          />
         </div>
+      </div>
     </div>
 
     <!-- Main Content -->
-    <div class="flex h-[calc(100vh-80px)]">
-        <!-- Left Sidebar -->
-        <div class="w-80 bg-[#121212] border-r border-gray-800 p-4 overflow-y-auto custom-scroll">
-            <!-- Library Header -->
-            <div class="flex items-center justify-between mb-6">
-                <div class="flex items-center gap-3">
-                    <img class="invert h-5" src="svgs/library.svg" alt="Library">
-                    <span class="font-semibold text-white">Your Library</span>
-                </div>
-                <button class="text-white hover:text-gray-300 text-2xl">+</button>
-            </div>
-
-            <!-- Playlist Creation Box -->
-            <div class="bg-[#1f1f1f] rounded-lg p-6 mb-4">
-                <p class="font-semibold text-white mb-2">Create your first playlist</p>
-                <p class="text-sm text-gray-400 mb-4">It's easy, we'll help you</p>
-                <button class="bg-white text-black rounded-full px-6 py-2 text-sm font-semibold hover:bg-gray-200 w-full">Create Playlist</button>
-            </div>
-
-            <!-- Podcasts Box -->
-            <div class="bg-[#1f1f1f] rounded-lg p-6 mb-8">
-                <p class="font-semibold text-white mb-2">Let's find some podcasts to follow</p>
-                <p class="text-sm text-gray-400 mb-4">We'll keep you updated on new episodes</p>
-                <button class="bg-white text-black rounded-full px-6 py-2 text-sm font-semibold hover:bg-gray-200 w-full">Browse podcasts</button>
-            </div>
-
-            <!-- Footer Links -->
-            <div class="text-xs text-gray-500 space-y-2 mb-8">
-                <div class="flex gap-4 flex-wrap">
-                    <a href="" class="hover:text-white">Legal</a>
-                    <a href="" class="hover:text-white">Safety & Privacy</a>
-                    <a href="" class="hover:text-white">Privacy Policy</a>
-                    <a href="" class="hover:text-white">Cookies</a>
-                    <a href="" class="hover:text-white">About Ads</a>
-                    <a href="" class="hover:text-white">Accessibility</a>
-                </div>
-            </div>
-
-            <!-- Language Button -->
-            <div class="flex items-center gap-2 border border-gray-500 rounded-full px-4 py-2 w-fit text-sm">
-                <img class="invert h-4" src="svgs/eng.svg" alt="English">
-                <span>English</span>
-            </div>
+    <div class="flex h-[calc(100vh-80px)] flex-col sm:flex-row">
+      <!-- Left Sidebar -->
+      <div
+        class="w-80 bg-[#121212] border-r border-gray-800 p-4 overflow-y-auto custom-scroll sidebar-mobile sm:w-80 sm:static sm:transform-none"
+      >
+        <!-- Library Header -->
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+            <img class="invert h-5" src="svgs/library.svg" alt="Library" />
+            <span class="font-semibold text-white">Your Library</span>
+          </div>
+          <button class="text-white hover:text-gray-300 text-2xl">+</button>
         </div>
 
-        <!-- Right Content Area -->
-        <div class="flex-1 overflow-y-auto custom-scroll bg-[#131313]">
-            <div class="p-6 max-w-7xl mx-auto">
-                <!-- Popular Artists -->
-                <h2 class="text-2xl font-bold text-white mb-4">Popular artists</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-full w-full aspect-square object-cover" src="images/arijit.jpeg" alt="Arijit">
-                        </div>
-                        <h4 class="font-semibold text-white">Arijit</h4>
-                        <p class="text-sm text-gray-400">Artist</p>
-                    </div>
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-full w-full aspect-square object-cover" src="images/pritam.jpeg" alt="Pritam">
-                        </div>
-                        <h4 class="font-semibold text-white">Pritam</h4>
-                        <p class="text-sm text-gray-400">Artist</p>
-                    </div>
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-full w-full aspect-square object-cover" src="images/shreya.jpeg" alt="Shreya">
-                        </div>
-                        <h4 class="font-semibold text-white">Shreya</h4>
-                        <p class="text-sm text-gray-400">Artist</p>
-                    </div>
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-full w-full aspect-square object-cover" src="images/diljit.jpeg" alt="Diljit">
-                        </div>
-                        <h4 class="font-semibold text-white">Diljit</h4>
-                        <p class="text-sm text-gray-400">Artist</p>
-                    </div>
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-full w-full aspect-square object-cover" src="images/kk1.jpg" alt="KK">
-                        </div>
-                        <h4 class="font-semibold text-white">KK</h4>
-                        <p class="text-sm text-gray-400">Artist</p>
-                    </div>
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-full w-full aspect-square object-cover" src="images/lata.jpeg" alt="Lata">
-                        </div>
-                        <h4 class="font-semibold text-white">Lata Mangeshkar</h4>
-                        <p class="text-sm text-gray-400">Artist</p>
-                    </div>
-                </div>
-
-                <!-- Popular Albums -->
-                <h2 class="text-2xl font-bold text-white mb-4">Popular albums and singles</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-                    <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group" data-audio="songs/Safarnama Video Song  Tamasha  Ranbir Kapoor, Deepika Padukone  T-Series.mp3">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/tamasha.jpeg" alt="Tamasha">
-                        </div>
-                        <h4 class="font-semibold text-white truncate">Safarrnama</h4>
-                        <p class="text-sm text-gray-400 truncate">Lucky Ali</p>
-                    </div>
-                    <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group" data-audio="songs/Sooraj Ki Bahoon Mein  Zindagi Na Milegi Dobara  Hrithik Roshan, Katrina Kaif, Farhan Akhtar.mp3">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="ZNMD">
-                        </div>
-                        <h4 class="font-semibold text-white truncate">Zindagi Na Milegi Dobara</h4>
-                        <p class="text-sm text-gray-400 truncate">Farhan Akhtar</p>
-                    </div>
-                    <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group" data-audio="songs/Dil Se Dil - Official Music Video  Sita Ramam  Vishal Chandrashekhar  Shashwat Singh  Mandar C..mp3">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/sita ramam.jpeg" alt="Sita Ramam">
-                        </div>
-                        <h4 class="font-semibold text-white truncate">Sita Ramam</h4>
-                        <p class="text-sm text-gray-400 truncate">Vishal Chandrashekhar</p>
-                    </div>
-                    <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group" data-audio="songs/Phir Le Aya Dil - Redux - BarfiPritamArijit SinghRanbirPriyankaIleana D'Cruz.mp3">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/barfi.jpeg" alt="Barfi">
-                        </div>
-                        <h4 class="font-semibold text-white truncate">Barfi</h4>
-                        <p class="text-sm text-gray-400 truncate">Pritam</p>
-                    </div>
-                    <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/hridayam.jpg" alt="Hridayam">
-                        </div>
-                        <h4 class="font-semibold text-white truncate">Hridayam</h4>
-                        <p class="text-sm text-gray-400 truncate">Hesham</p>
-                    </div>
-                    <div class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/ranjhana.jpg" alt="Ranjhana">
-                        </div>
-                        <h4 class="font-semibold text-white truncate">Ranjhana</h4>
-                        <p class="text-sm text-gray-400 truncate">A.R Rahman</p>
-                    </div>
-                </div>
-
-                <!-- Popular Radio -->
-                <h2 class="text-2xl font-bold text-white mb-4">Popular radio</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio">
-
-                        </div>
-                        <p class="text-sm text-gray-400 truncate">with Atif Aslim, Sachin-jigar</p>
-                    </div>
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio">
-                        </div>
-                        <p class="text-sm text-gray-400 truncate">with Karan Aujla, Shubh</p>
-                    </div>
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio">
-                        </div>
-                        <p class="text-sm text-gray-400 truncate">with A.R.Rahman, Vishal</p>
-                    </div>
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio">
-                        </div>
-                        <p class="text-sm text-gray-400 truncate">with Pritam, Mohit Chauhan</p>
-                    </div>
-                    <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
-                        <div class="relative mb-4">
-                            <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio">
-                        </div>
-                        <p class="text-sm text-gray-400 truncate">with Uttam Singh, Lata</p>
-                    </div>
-                </div>
-
-                <!-- Footer -->
-                <div class="pt-8 pb-20 border-t border-gray-800">
-                    <div class="grid grid-cols-5 gap-8 mb-8">
-                        <div>
-                            <h5 class="font-semibold text-white mb-4">Company</h5>
-                            <ul class="space-y-2">
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">About</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Jobs</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">For the Record</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h5 class="font-semibold text-white mb-4">Communities</h5>
-                            <ul class="space-y-2">
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">For Artists</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Developers</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Advertising</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Investors</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Vendors</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h5 class="font-semibold text-white mb-4">Useful Links</h5>
-                            <ul class="space-y-2">
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Support</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Free Mobile App</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h5 class="font-semibold text-white mb-4">Spotify Plans</h5>
-                            <ul class="space-y-2">
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Premium Individual</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Premium Duo</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Premium Family</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Premium Student</a></li>
-                                <li><a href="" class="text-gray-400 text-sm hover:text-white">Spotify Free</a></li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h5 class="font-semibold text-white mb-4">Follow Us</h5>
-                            <div class="flex gap-4">
-                                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[#1f1f1f] hover:bg-[#282828] cursor-pointer">
-                                    <img src="svgs/insta.svg" alt="Instagram" class="h-5">
-                                </div>
-                                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[#1f1f1f] hover:bg-[#282828] cursor-pointer">
-                                    <img src="svgs/twitter.svg" alt="Twitter" class="h-5">
-                                </div>
-                                <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[#1f1f1f] hover:bg-[#282828] cursor-pointer">
-                                    <img src="svgs/face.svg" alt="Facebook" class="h-5">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2 text-xs text-gray-500">
-                        <img src="svgs/copyright.svg" alt="Copyright" class="h-3">
-                        <span>Music Player 2025</span>
-                    </div>
-                </div>
-            </div>
+        <!-- Playlist Creation Box -->
+        <div class="bg-[#1f1f1f] rounded-lg p-6 mb-4">
+          <p class="font-semibold text-white mb-2">Create playlist</p>
+          <p class="text-sm text-gray-400 mb-4">
+            according to your mood,theme or activity
+          </p>
+          <button
+            class="bg-white text-black rounded-full px-6 py-2 text-sm font-semibold hover:bg-gray-200 w-full"
+          >
+            Create Playlist
+          </button>
         </div>
+      </div>
+
+      <!-- Right Content Area -->
+      <div
+        class="flex-1 overflow-y-auto custom-scroll bg-[#131313] main-mobile"
+      >
+        <div class="p-6 max-w-7xl mx-auto">
+          <!-- Popular Artists -->
+          <h2 class="text-2xl font-bold text-white mb-4">Popular artists</h2>
+          <div
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8"
+          >
+            <div
+              class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-full w-full aspect-square object-cover"
+                  src="images/arijit.jpeg"
+                  alt="Arijit"
+                />
+              </div>
+              <h4 class="font-semibold text-white">Arijit</h4>
+              <p class="text-sm text-gray-400">Artist</p>
+            </div>
+            <div
+              class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-full w-full aspect-square object-cover"
+                  src="images/pritam.jpeg"
+                  alt="Pritam"
+                />
+              </div>
+              <h4 class="font-semibold text-white">Pritam</h4>
+              <p class="text-sm text-gray-400">Artist</p>
+            </div>
+            <div
+              class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-full w-full aspect-square object-cover"
+                  src="images/shreya.jpeg"
+                  alt="Shreya"
+                />
+              </div>
+              <h4 class="font-semibold text-white">Shreya</h4>
+              <p class="text-sm text-gray-400">Artist</p>
+            </div>
+            <div
+              class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-full w-full aspect-square object-cover"
+                  src="images/diljit.jpeg"
+                  alt="Diljit"
+                />
+              </div>
+              <h4 class="font-semibold text-white">Diljit</h4>
+              <p class="text-sm text-gray-400">Artist</p>
+            </div>
+            <div
+              class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-full w-full aspect-square object-cover"
+                  src="images/kk1.jpg"
+                  alt="KK"
+                />
+              </div>
+              <h4 class="font-semibold text-white">KK</h4>
+              <p class="text-sm text-gray-400">Artist</p>
+            </div>
+            <div
+              class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-full w-full aspect-square object-cover"
+                  src="images/lata.jpeg"
+                  alt="Lata"
+                />
+              </div>
+              <h4 class="font-semibold text-white">Lata Mangeshkar</h4>
+              <p class="text-sm text-gray-400">Artist</p>
+            </div>
+          </div>
+
+          <!-- Popular Albums -->
+          <h2 class="text-2xl font-bold text-white mb-4">
+            Popular albums and singles
+          </h2>
+          <div
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8"
+          >
+            <div
+              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+              data-audio="songs/Safarnama Video Song  Tamasha  Ranbir Kapoor, Deepika Padukone  T-Series.mp3"
+            >
+              <div class="mb-4 h-3/4">
+                <img
+                  class="rounded-lg w-full aspect-square object-cover"
+                  src="images/tamasha.jpeg"
+                  alt="Tamasha"
+                />
+              </div>
+              <h4 class="font-semibold text-white truncate">Safarrnama</h4>
+              <p class="text-sm text-gray-400 truncate">Lucky Ali</p>
+            </div>
+            <div
+              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+              data-audio="songs/Sooraj Ki Bahoon Mein  Zindagi Na Milegi Dobara  Hrithik Roshan, Katrina Kaif, Farhan Akhtar.mp3"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-lg w-full aspect-square object-cover"
+                  src="images/znmd2.jpeg"
+                  alt="ZNMD"
+                />
+              </div>
+              <h4 class="font-semibold text-white truncate">
+                Zindagi Na Milegi Dobara
+              </h4>
+              <p class="text-sm text-gray-400 truncate">Farhan Akhtar</p>
+            </div>
+            <div
+              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+              data-audio="songs/Dil Se Dil - Official Music Video  Sita Ramam  Vishal Chandrashekhar  Shashwat Singh  Mandar C..mp3"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-lg w-full aspect-square object-cover"
+                  src="images/sita ramam.jpeg"
+                  alt="Sita Ramam"
+                />
+              </div>
+              <h4 class="font-semibold text-white truncate">Sita Ramam</h4>
+              <p class="text-sm text-gray-400 truncate">
+                Vishal Chandrashekhar
+              </p>
+            </div>
+            <div
+              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+              data-audio="songs/Phir Le Aya Dil - Redux - BarfiPritamArijit SinghRanbirPriyankaIleana D'Cruz.mp3"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-lg w-full aspect-square object-cover"
+                  src="images/barfi.jpeg"
+                  alt="Barfi"
+                />
+              </div>
+              <h4 class="font-semibold text-white truncate">Barfi</h4>
+              <p class="text-sm text-gray-400 truncate">Pritam</p>
+            </div>
+            <div
+              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-lg w-full aspect-square object-cover"
+                  src="images/hridayam.jpg"
+                  alt="Hridayam"
+                />
+              </div>
+              <h4 class="font-semibold text-white truncate">Hridayam</h4>
+              <p class="text-sm text-gray-400 truncate">Hesham</p>
+            </div>
+            <div
+              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-lg w-full aspect-square object-cover"
+                  src="images/ranjhana.jpg"
+                  alt="Ranjhana"
+                />
+              </div>
+              <h4 class="font-semibold text-white truncate">Ranjhana</h4>
+              <p class="text-sm text-gray-400 truncate">A.R Rahman</p>
+            </div>
+          </div>
+
+          <!-- Popular Radio -->
+          <h2 class="text-2xl font-bold text-white mb-4">Popular radio</h2>
+          <div
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8"
+          >
+            <div
+              class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-lg w-full aspect-square object-cover"
+                  src="images/znmd2.jpeg"
+                  alt="Radio"
+                />
+              </div>
+              <p class="text-sm text-gray-400 truncate">
+                with Atif Aslim, Sachin-jigar
+              </p>
+            </div>
+            <div
+              class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-lg w-full aspect-square object-cover"
+                  src="images/znmd2.jpeg"
+                  alt="Radio"
+                />
+              </div>
+              <p class="text-sm text-gray-400 truncate">
+                with Karan Aujla, Shubh
+              </p>
+            </div>
+            <div
+              class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-lg w-full aspect-square object-cover"
+                  src="images/znmd2.jpeg"
+                  alt="Radio"
+                />
+              </div>
+              <p class="text-sm text-gray-400 truncate">
+                with A.R.Rahman, Vishal
+              </p>
+            </div>
+            <div
+              class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+            >
+              <div class="relative mb-4">
+                <img
+                  class="rounded-lg w-full aspect-square object-cover"
+                  src="images/znmd2.jpeg"
+                  alt="Radio"
+                />
+              </div>
+              <p class="text-sm text-gray-400 truncate">
+                with Pritam, Mohit Chauhan
+              </p>
+            </div>
+            <div class="bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group">
+              <div class="relative mb-4">
+                <img class="rounded-lg w-full aspect-square object-cover" src="images/znmd2.jpeg" alt="Radio"/>
+              </div>
+              <p class="text-sm text-gray-400 truncate">with Uttam Singh, Lata</p>
+            </div>
+          </div>
+
+          <!-- Footer -->
+          <div class="pt-8 pb-20 border-t border-gray-800">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-8 mb-8">
+              <div>
+                <h5 class="font-semibold text-white mb-4">Company</h5>
+                <ul class="space-y-2">
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">About</a>
+                  </li>
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Jobs</a>
+                  </li>
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">For the Record</a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h5 class="font-semibold text-white mb-4">Communities</h5>
+                <ul class="space-y-2">
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">For Artists</a>
+                  </li>
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Developers</a>
+                  </li>
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Advertising</a>
+                  </li>
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Investors</a>
+                  </li>
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Vendors</a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h5 class="font-semibold text-white mb-4">Useful Links</h5>
+                <ul class="space-y-2">
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Support</a>
+                  </li>
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Free Mobile App</a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h5 class="font-semibold text-white mb-4">Plans</h5>
+                <ul class="space-y-2">
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Premium Individual</a>
+                  </li>
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Premium Duo</a>
+                  </li>
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Premium Family</a>
+                  </li>
+                  <li>
+                    <a href="" class="text-gray-400 text-sm hover:text-white">Premium Student</a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h5 class="font-semibold text-white mb-4">Follow Us</h5>
+                <div class="flex gap-4">
+                  <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[#1f1f1f] hover:bg-[#282828] cursor-pointer">
+                    <img src="svgs/insta.svg" alt="Instagram" class="h-5" />
+                  </div>
+                  <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[#1f1f1f] hover:bg-[#282828] cursor-pointer">
+                    <img src="svgs/twitter.svg" alt="Twitter" class="h-5" />
+                  </div>
+                  <div class="flex items-center justify-center w-10 h-10 rounded-full bg-[#1f1f1f] hover:bg-[#282828] cursor-pointer">
+                    <img src="svgs/face.svg" alt="Facebook" class="h-5" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 text-xs text-gray-500">
+              <img src="svgs/copyright.svg" alt="Copyright" class="h-3" />
+              <span>Music Player 2025</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Music Player Bar -->
-    <div id="player-bar" class="fixed bottom-0 left-0 right-0 text-white px-5 py-1.5 flex flex-row gap-1 z-50 shadow-lg hidden" style="background-color: #29292a;">
-        <div class="flex w-auto justify-center items-center gap-4">
-            <img id="player-image" src="" alt="" class="w-11 h-11 rounded object-cover flex-shrink-0">
-            <div class="flex-shrink-0 w-44 min-w-[120px]">
-                <div id="player-track-name" class="font-bold text-xs truncate">No track</div>
-                <div id="player-track-artist" class="text-xs opacity-70 truncate">Click a song</div>
-            </div>
+    <div id="player-bar" class="fixed bottom-0 left-0 right-0 text-white px-5 py-1.5 flex flex-row gap-1 z-50 shadow-lg hidden sm:flex-row flex-col" style="background-color: #29292a">
+      <div class="flex w-auto justify-center items-center gap-4">
+        <img id="player-image" src="" alt="" class="w-12 h-12 rounded object-cover flex-shrink-0"/>
+        <div class="flex-shrink-0 w-44 min-w-[120px]">
+          <div id="player-track-name" class="font-bold text-xs truncate">
+            No track
+          </div>
+          <div id="player-track-artist" class="text-xs opacity-70 truncate">
+            Click a song
+          </div>
         </div>
-        <div class="flex w-3/4 items-center flex-col py-2">
-            <div class="flex gap-3  ">
-                <button id="player-prev" class="bg-none border-none text-white cursor-pointer text-lg hover:text-gray-300 transition-colors" aria-label="Previous">
-                    <img src="svgs/previous.svg" alt="Previous" class="w-5 h-5">
-                </button>
-                <button id="player-play" class="bg-none border-none text-white cursor-pointer text-lg hover:text-gray-300 transition-colors" aria-label="Play/Pause">
-                    <img src="svgs/play.svg" alt="Play" class="icon-play w-5 h-5">
-                    <img src="svgs/pause.svg" alt="Pause" class="icon-pause w-5 h-5 hidden">
-                </button>
-                <button id="player-next" class="bg-none border-none text-white cursor-pointer text-lg hover:text-gray-300 transition-colors" aria-label="Next">
-                    <img src="svgs/next.svg" alt="Next" class="w-5 h-5">
-                </button>
-            </div>
-            <div class="flex items-center gap-2 flex-1 min-w-[600px]">
-                <span id="player-time" class="text-xs min-w-[35px] flex-shrink-0">0:00</span>
-                <input id="player-progress" type="range" min="0" value="0" step="0.1" class="flex-1 h-0.5 cursor-pointer accent-white">
-                <span id="player-duration" class="text-xs min-w-[35px] flex-shrink-0">0:00</span>
-            </div>
+      </div>
+      <div class="flex w-3/4 items-center flex-col py-2 gap-1">
+        <div class="flex gap-4">
+          <button id="player-repeat" aria-label="Repeat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5 player-control-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/>
+            </svg>
+          </button>
+          <button id="player-prev" class="bg-none border-none" aria-label="Previous">
+            <img src="svgs/previous.svg" alt="Previous" class="w-5 h-5" />
+          </button>
+          <button id="player-play" class="bg-none border-none" aria-label="Play/Pause">
+            <img src="svgs/play.svg" alt="Play" class="icon-play w-5 h-5" />
+            <img src="svgs/pause.svg" alt="Pause" class="icon-pause w-5 h-5 hidden"/>
+          </button>
+          <button id="player-next" class="bg-none border-none" aria-label="Next">
+            <img src="svgs/next.svg" alt="Next" class="w-5 h-5" />
+          </button>
+
+          <button id="player-shuffle" aria-label="Shuffle">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-5 h-5 player-control-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h4.586a2 2 0 0 1 1.414.586l8 8A2 2 0 0 0 18.414 16H21m0 0-3-3m3 3-3 3M3 17h4.586a2 2 0 0 0 1.414-.586l8-8A2 2 0 0 1 18.414 8H21m0 0-3-3m3 3-3 3"/>
+            </svg>
+          </button>
+
         </div>
+        <div class="flex items-center gap-2 flex-1 min-w-[600px]">
+          <span id="player-time" class="text-xs min-w-[35px] flex-shrink-0">0:00</span>
+          <input id="player-progress" type="range" min="0" value="0" step="0.1" class="flex-1 h-0.5 cursor-pointer accent-white"/>
+          <span id="player-duration" class="text-xs min-w-[35px] flex-shrink-0">0:00</span
+          >
+        </div>
+      </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

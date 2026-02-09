@@ -8,6 +8,8 @@ const playerTrackArtist = document.getElementById('player-track-artist');
 const playerPlay = document.getElementById('player-play');
 const playerPrev = document.getElementById('player-prev');
 const playerNext = document.getElementById('player-next');
+const playerRepeat = document.getElementById('player-repeat');
+const playerShuffle = document.getElementById('player-shuffle');
 const playerProgress = document.getElementById('player-progress');
 const playerTime = document.getElementById('player-time');
 const playerDuration = document.getElementById('player-duration');
@@ -97,8 +99,6 @@ playerNext.addEventListener('click', () => {
   audio.play().catch(e => console.warn('play failed:', e));
 });
 
-
-
 playerProgress.addEventListener('change', () => {
   audio.currentTime = Number(playerProgress.value);
 });
@@ -129,10 +129,34 @@ audio.addEventListener('pause', () => {
   playerPlay.setAttribute('aria-label', 'Play');
 });
 
-audio.addEventListener('ended', () => {
-  const next = (currentTrackIndex + 1) % playlist.length;
-  if (playlist.length > 0) {
-    loadTrack(next);
-    audio.play().catch(e => console.warn('play failed:', e));
+let isRepeatEnabled = false;
+
+playerRepeat.addEventListener('click', () => {
+  isRepeatEnabled = !isRepeatEnabled;
+  if (isRepeatEnabled) {
+    isShuffleEnabled = false;
+    playerShuffle.classList.remove('control-active');
   }
+  audio.loop = isRepeatEnabled;
+  playerRepeat.classList.toggle('control-active', isRepeatEnabled);
+});
+
+audio.addEventListener('ended', () => {
+  if (playlist.length === 0 || currentTrackIndex === -1) return;
+
+  const next = (currentTrackIndex + 1) % playlist.length;
+  loadTrack(next);
+  audio.play();
+});
+
+let isShuffleEnabled = false;
+
+playerShuffle.addEventListener('click', () => {
+  isShuffleEnabled = !isShuffleEnabled;
+  if (isShuffleEnabled) {
+    isRepeatEnabled = false;
+    audio.loop = false;
+    playerRepeat.classList.remove('control-active');
+  }
+  playerShuffle.classList.toggle('control-active', isShuffleEnabled);
 });

@@ -1,36 +1,97 @@
-@media (max-width: 640px) {
-	.sidebar-mobile {
-		position: fixed;
-		left: 0;
-		top: 56px;
-		width: 100vw !important;
-		height: calc(100vh - 56px);
-		z-index: 50;
-		background: #121212;
-		overflow-y: auto;
-		transform: translateX(-100%);
-		transition: transform 0.3s;
-	}
-	.sidebar-mobile.active {
-		transform: translateX(0);
-	}
-	.main-mobile {
-		width: 100vw !important;
-		padding: 0.5rem !important;
-	}
-	#player-bar {
-		flex-direction: column !important;
-		gap: 0.5rem !important;
-		padding: 0.5rem !important;
-	}
-	#player-bar .flex-col {
-		min-width: 0 !important;
-		width: 100% !important;
-	}
-	#player-bar .min-w-[600px] {
-		min-width: 0 !important;
-	}
-}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+      @media (max-width: 640px) {
+        .sidebar-mobile {
+          position: fixed;
+          left: 0;
+          top: 56px;
+          width: 100vw !important;
+          height: calc(100vh - 56px);
+          z-index: 50;
+          background: #121212;
+          overflow-y: auto;
+          transform: translateX(-100%);
+          transition: transform 0.3s;
+        }
+        .sidebar-mobile.active {
+          transform: translateX(0);
+        }
+        .main-mobile {
+          width: 100vw !important;
+          padding: 0.5rem !important;
+        }
+        #player-bar {
+          flex-direction: column !important;
+          gap: 0.5rem !important;
+          padding: 0.5rem !important;
+        }
+        #player-bar .flex-col {
+          min-width: 0 !important;
+          width: 100% !important;
+        }
+        #player-bar .min-w-[600px] {
+          min-width: 0 !important;
+        }
+      }
+
+      /* Chrome-specific styles */
+      input[type="range"] {
+        -webkit-appearance: none;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      input[type="range"]::-webkit-slider-track {
+        background: #ffffff;
+        height: 2px;
+        border-radius: 2px;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      #player-progress::-webkit-slider-runnable-track {
+        background: #ffffff;
+        height: 2px;
+        border-radius: 2px;
+      }
+
+      #player-progress::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #ffffff;
+        margin-top: -3px;
+      }
+
+      .custom-scroll::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      .custom-scroll::-webkit-scrollbar-track {
+        background: #000;
+      }
+
+      .custom-scroll::-webkit-scrollbar-thumb {
+        background: #3c3b3b;
+      }
+
+      .custom-scroll::-webkit-scrollbar-thumb:hover {
+        background: #7b7878;
+      }
+      
+      .player-control-icon {
+        color: #9ca3af; 
+    }
+    .control-active .player-control-icon {
+        color: #c58422; 
+    }

@@ -438,14 +438,19 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M3 7h4.586a2 2 0 0 1 1.414.586l8 8A2 2 0 0 0 18.414 16H21m0 0-3-3m3 3-3 3M3 17h4.586a2 2 0 0 0 1.414-.586l8-8A2 2 0 0 1 18.414 8H21m0 0-3-3m3 3-3 3"/>
             </svg>
           </button>
-
         </div>
         <div class="flex items-center gap-2 flex-1 min-w-[600px]">
           <span id="player-time" class="text-xs min-w-[35px] flex-shrink-0">0:00</span>
-          <input id="player-progress" type="range" min="0" value="0" step="0.1" class="flex-1 h-0.5 cursor-pointer accent-white"/>
+          <input id="player-progress" type="range" min="0" value="0" step="0.1" class="flex-1 cursor-pointer "/>
           <span id="player-duration" class="text-xs min-w-[35px] flex-shrink-0">0:00</span
           >
         </div>
+      </div>
+      <div class="flex items-center gap-2 ml-4">
+        <button id="player-volume-btn" class="text-white text-sm">
+          <img id="player-volume-icon" src="src/assets/svgs/volume-high.svg" class="w-5 h-5" alt="Volume" />
+        </button>
+        <input type="range" id="player-volume" min="0" max="1" step="0.01" value="1" class="w-24 cursor-pointer">
       </div>
     </div>
 

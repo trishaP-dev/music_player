@@ -13,7 +13,10 @@ const playerShuffle = document.getElementById('player-shuffle');
 const playerProgress = document.getElementById('player-progress');
 const playerTime = document.getElementById('player-time');
 const playerDuration = document.getElementById('player-duration');
+const playerVolume = document.getElementById('player-volume');
+const playerVolumeBtn = document.getElementById('player-volume-btn');
 
+let lastVolume = 1;
 let playlist = [];
 let currentTrackIndex = -1;
 
@@ -99,7 +102,7 @@ playerNext.addEventListener('click', () => {
   audio.play().catch(e => console.warn('play failed:', e));
 });
 
-playerProgress.addEventListener('change', () => {
+playerProgress.addEventListener('input', () => {
   audio.currentTime = Number(playerProgress.value);
 });
 
@@ -160,3 +163,34 @@ playerShuffle.addEventListener('click', () => {
   }
   playerShuffle.classList.toggle('control-active', isShuffleEnabled);
 });
+
+const playerVolumeIcon = document.getElementById('player-volume-icon');
+
+function updateVolumeIcon(volume) {
+  if (volume == 0) {
+    playerVolumeIcon.src = "src/assets/svgs/volume-mute.svg";
+  } else if (volume < 0.5) {
+    playerVolumeIcon.src = "src/assets/svgs/volume-low.svg";
+  } else {
+    playerVolumeIcon.src = "src/assets/svgs/volume-high.svg";
+  }
+}
+
+playerVolume.addEventListener('input', () => {
+  audio.volume = playerVolume.value;
+  updateVolumeIcon(audio.volume);
+});
+
+playerVolumeBtn.addEventListener('click', () => {
+  if (audio.volume > 0) {
+    lastVolume = audio.volume;
+    audio.volume = 0;
+    playerVolume.value = 0;
+  } else {
+    audio.volume = lastVolume || 1;
+    playerVolume.value = audio.volume;
+  }
+
+  updateVolumeIcon(audio.volume);
+});
+

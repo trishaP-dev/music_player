@@ -15,9 +15,18 @@ const playerTime = document.getElementById('player-time');
 const playerDuration = document.getElementById('player-duration');
 const playerVolume = document.getElementById('player-volume');
 const playerVolumeBtn = document.getElementById('player-volume-btn');
+const artistCards = document.querySelectorAll('.artist-card');
+const homeBtn = document.getElementById('home-btn');
+const homeSection = document.getElementById("home-section");
+const aboutSection = document.getElementById("about-section");
+const supportSection = document.getElementById("support-section");
+const aboutLink = document.getElementById("about-link");
+const supportLink = document.getElementById("support-link");
+const backHome = document.getElementById("back-home");
+const backHome2 = document.getElementById("back-home-2");
 
-let lastVolume = 1;
 let playlist = [];
+let lastVolume = 1;
 let currentTrackIndex = -1;
 
 function formatTime(seconds) {
@@ -27,7 +36,6 @@ function formatTime(seconds) {
   return `${mins}:${secs}`;
 }
 
-// Collect all cards with song data from images
 function buildPlaylist() {
   const cards = document.querySelectorAll('.card[data-audio]');
   playlist = [];
@@ -42,10 +50,6 @@ function buildPlaylist() {
     }
   });
   console.log('Playlist built:', playlist.length, 'songs');
-}
-
-function formatSongName(name) {
-  return name.replace(/\\.mp3$/i, '').replace(/songs\\//i, '').substring(0, 40);
 }
 
 function loadTrack(index) {
@@ -68,8 +72,32 @@ function togglePlay() {
   }
 }
 
-// Click handler for song cards
 buildPlaylist();
+
+artistCards.forEach(card => {
+  card.addEventListener('click', () => {
+
+    const selectedArtist = card.dataset.artist;
+
+    activeSongList = playlist.filter(song =>
+      song.artist.toLowerCase().includes(selectedArtist.toLowerCase())
+    );
+
+    document.querySelectorAll('.card').forEach(songCard => {
+      if (
+        songCard.dataset.artist &&
+        songCard.dataset.artist.toLowerCase().includes(selectedArtist.toLowerCase())
+      ) {
+        songCard.style.display = "block";
+      } else {
+        songCard.style.display = "none";
+      }
+    });
+
+    currentTrackIndex = 0;
+  });
+});
+
 playlist.forEach((track, idx) => {
   track.card.style.cursor = 'pointer';
   track.card.addEventListener('click', (e) => {
@@ -85,7 +113,6 @@ playlist.forEach((track, idx) => {
   });
 });
 
-// Player controls
 playerPlay.addEventListener('click', togglePlay);
 
 playerPrev.addEventListener('click', () => {
@@ -194,3 +221,33 @@ playerVolumeBtn.addEventListener('click', () => {
   updateVolumeIcon(audio.volume);
 });
 
+homeBtn.addEventListener('click', () => {
+  activeSongList = playlist;
+  activeUserPlaylist = null;
+  currentTrackIndex = -1;
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.display = "block";
+  });
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+aboutLink.addEventListener("click", () => {
+  homeSection.classList.add("hidden");
+  aboutSection.classList.remove("hidden");
+});
+
+supportLink.addEventListener("click", () => {
+  homeSection.classList.add("hidden");
+  supportSection.classList.remove("hidden");
+});
+
+function goHome() {
+  aboutSection.classList.add("hidden");
+  supportSection.classList.add("hidden");
+  homeSection.classList.remove("hidden");
+}
+
+backHome.addEventListener("click", goHome);
+backHome2.addEventListener("click", goHome);

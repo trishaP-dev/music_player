@@ -32,7 +32,7 @@
           min-width: 0 !important;
           width: 100% !important;
         }
-        #player-bar .min-w-[600px] {
+       #player-bar .player-progress-wrapper {
           min-width: 0 !important;
         }
       }

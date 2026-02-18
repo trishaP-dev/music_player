@@ -5,262 +5,269 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Web Player: Music for everyone</title>
     <link rel="stylesheet" href="src/css/output.css" />
+    <!-- <style>
+      body {
+  background: linear-gradient(135deg, #1e3a8a, #9333ea);
+}
+
+    </style> -->
   </head>
-  <body class="bg-black text-white m-0 p-0 font-sans">
+  <body class="bg-[#0c1224] text-white m-0 p-0 font-sans ">
     <div id="home-section">
-    <div
-      class="flex items-center justify-between px-4 py-3 bg-black border-b border-gray-800 sticky top-0 z-40 sm:flex-row flex-col"
-    >
-      <div class="flex items-center gap-4 flex-1 sm:ml-6 ml-0 w-full">
-        <img class="h-8" src="src/assets/svgs/music.svg" alt="logo" />
-        <div id="home-btn"
-          class="flex items-center justify-center w-12 h-12 bg-[#1f1f1f] rounded-full hover:bg-[#282828] cursor-pointer"
-        >
-          <img class="invert h-5" src="src/assets/svgs/home.svg" alt="Home" />
+      <div
+        class="flex items-center justify-between px-4 py-3 bg-black border-b border-gray-800 sticky top-0 z-40 sm:flex-row flex-col"
+      >
+        <div class="flex items-center gap-4 flex-1 sm:ml-6 ml-0 w-full">
+          <img class="h-8" src="src/assets/svgs/music.svg" alt="logo" />
+          <div id="home-btn"
+            class="flex items-center justify-center w-12 h-12 bg-[#1f1f1f] rounded-full cursor-pointer"
+          >
+            <img class="invert h-5" src="src/assets/svgs/home.svg" alt="Home" />
+          </div>
+          <div
+            class="flex items-center gap-3 rounded-full bg-[#1f1f1f] h-12 px-4 flex-1 max-w-sm"
+          >
+            <img class="invert h-5" src="src/assets/svgs/search.svg" alt="Search" />
+            <input
+              id="search-input"
+              type="text"
+              placeholder="looking for any particular song or artist?"
+              class="bg-transparent text-white placeholder-gray-400 text-sm flex-1 outline-none"
+            />
+          </div>
         </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class=" flex h-[calc(100vh-80px)] flex-col sm:flex-row">
+        <!-- Left Sidebar -->
         <div
-          class="flex items-center gap-3 rounded-full bg-[#1f1f1f] h-12 px-4 flex-1 max-w-sm"
+          class="w-80 bg-black border-r border-gray-800 p-4 overflow-y-auto custom-scroll sidebar-mobile sm:w-80 sm:static sm:transform-none"
         >
-          <img class="invert h-5" src="src/assets/svgs/search.svg" alt="Search" />
-          <input
-            type="text"
-            placeholder="What do you want to play?"
-            class="bg-transparent text-white placeholder-gray-400 text-sm flex-1 outline-none"
-          />
-        </div>
-      </div>
-    </div>
-
-    <!-- Main Content -->
-    <div class=" flex h-[calc(100vh-80px)] flex-col sm:flex-row">
-      <!-- Left Sidebar -->
-      <div
-        class="w-80 bg-[#121212] border-r border-gray-800 p-4 overflow-y-auto custom-scroll sidebar-mobile sm:w-80 sm:static sm:transform-none"
-      >
-        <!-- Library Header -->
-        <div class="flex items-center justify-between mb-6">
-          <div class="flex items-center gap-3">
-            <img class="invert h-5" src="src/assets/svgs/library.svg" alt="Library" />
-            <span class="font-semibold text-white">Your Library</span>
-          </div>
-          <button class="text-white hover:text-gray-300 text-2xl">+</button>
-        </div>
-
-        <!-- Playlist Creation Box -->
-        <div class="bg-[#1f1f1f] rounded-lg p-6 mb-4">
-          <p class="font-semibold text-white mb-2">Create playlist</p>
-          <p class="text-sm text-gray-400 mb-4">
-            according to your mood,theme or activity
-          </p>
-          <button id="create-playlist-btn"
-            class="bg-white text-black rounded-full px-6 py-2 text-sm font-semibold hover:bg-gray-200 w-full"
-          >
-            Create Playlist
-          </button>
-        </div>
-        <div id="playlist-container" class="mt-4 space-y-2"></div>
-
-      </div>
-
-      <!-- Right Content Area -->
-      <div
-        class="flex-1 overflow-y-auto custom-scroll bg-[#131313] main-mobile"
-      >
-        <div class="p-6 max-w-7xl mx-auto">
-          <!-- Popular Artists -->
-          <h2 id="section-heading"
-          class="text-2xl font-bold text-white mb-4">Popular artists</h2>
-          <div
-            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8"
-          >
-            <div
-              class="artist-card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-artist="Arijit Singh"
-            >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-full w-full aspect-square object-cover"
-                  src="src/assets/images/arijit.jpeg"
-                  alt="Arijit"
-                />
-              </div>
-              <h4 class="font-semibold text-white">Arijit</h4>
-              <p class="text-sm text-gray-400">Artist</p>
+          <!-- Library Header -->
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center gap-3">
+              <img class="invert h-5" src="src/assets/svgs/library.svg" alt="Library" />
+              <span class="font-semibold text-white">Your Library</span>
             </div>
-            <div
-              class="artist-card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-artist="Pritam"
-            >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-full w-full aspect-square object-cover"
-                  src="src/assets/images/pritam.jpeg"
-                  alt="Pritam"
-                />
-              </div>
-              <h4 class="font-semibold text-white">Pritam</h4>
-              <p class="text-sm text-gray-400">Artist</p>
-            </div>
-            <div
-              class="artist-card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-artist="Shreya Ghoshal"
-            >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-full w-full aspect-square object-cover"
-                  src="src/assets/images/shreya.jpeg"
-                  alt="Shreya"
-                />
-              </div>
-              <h4 class="font-semibold text-white">Shreya Ghoshal</h4>
-              <p class="text-sm text-gray-400">Artist</p>
-            </div>
-            <div
-              class="artist-card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-artist="Sunidhi Chauhan"
-            >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-full w-full aspect-square object-cover"
-                  src="src/assets/images/Sunidhi.jpg"
-                  alt="Sunidhi Chauhan"
-                />
-              </div>
-              <h4 class="font-semibold text-white">Sunidhi Chauhan</h4>
-              <p class="text-sm text-gray-400">Artist</p>
-            </div>
-            <div
-              class="artist-card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-artist="A.R Rahman"
-            >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-full w-full aspect-square object-cover"
-                  src="src/assets/images/AR.jpg"
-                  alt="KK"
-                />
-              </div>
-              <h4 class="font-semibold text-white">A.R Rahman</h4>
-              <p class="text-sm text-gray-400">Artist</p>
-            </div>
-            <div
-              class="artist-card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-artist="Javed Ali"
-            >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-full w-full aspect-square object-cover"
-                  src="src/assets/images/Javed.jpg"
-                  alt="Javed"
-                />
-              </div>
-              <h4 class="font-semibold text-white">Javed Ali</h4>
-              <p class="text-sm text-gray-400">Artist</p>
-            </div>
+            <button class="text-white hover:text-gray-300 text-2xl">+</button>
           </div>
 
-          <h2 class="text-2xl font-bold text-white mb-4">
-            Popular albums and singles
-          </h2>
-          <div
-            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4"
-          >
-            <div
-              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-audio="src/assets/audio/Safarnama .mp3"
-              data-artist="Lucky Ali"
+          <!-- Playlist Creation Box -->
+          <div class="bg-[#1f1f1f] rounded-lg p-6 mb-4">
+            <p class="font-semibold text-white mb-2">Create playlist</p>
+            <p class="text-sm text-gray-400 mb-4">
+              according to your mood, theme or activity
+            </p>
+            <button id="create-playlist-btn"
+              class="bg-white text-black rounded-full px-6 py-2 text-sm font-semibold hover:bg-gray-200 w-full"
             >
-              <div class="mb-4 h-3/4">
-                <img
-                  class="rounded-lg w-full aspect-square object-cover"
-                  src="src/assets/images/tamasha.jpeg"
-                  alt="Tamasha"
-                />
-              </div>
-              <h4 class="font-semibold text-white truncate">Safarrnama</h4>
-              <p class="text-sm text-gray-400 truncate">Lucky Ali</p>
-            </div>
+              Create Playlist
+            </button>
+          </div>
+          <div id="playlist-container" class="mt-4 space-y-2"></div>
+
+        </div>
+
+        <!-- Right Content Area -->
+        <div
+        class="flex-1 overflow-y-auto custom-scroll  main-mobile bg-gradient-to-br from-black via-[#1a0000] to-red-900"
+        >
+          <div class="p-6 max-w-7xl mx-auto">
+            <!-- Popular Artists -->
+            <h2 id="section-heading"
+              class="text-2xl font-bold text-white mb-4">Popular artists</h2>
             <div
-              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-audio="src/assets/audio/Sooraj Ki Bahoon Mein.mp3"
-              data-artist="Farhan Akhtar"
+              class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8"
             >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-lg w-full aspect-square object-cover"
-                  src="src/assets/images/znmd2.jpeg"
-                  alt="ZNMD"
-                />
+              <div
+                class="artist-card rounded-lg p-4 cursor-pointer transition-colors bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-artist="Arijit Singh"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-full w-full aspect-square object-cover"
+                    src="src/assets/images/arijit.jpeg"
+                    alt="Arijit"
+                  />
+                </div>
+                <h4 class="font-semibold text-white">Arijit</h4>
+                <p class="text-sm text-gray-400">Artist</p>
               </div>
-              <h4 class="font-semibold text-white truncate">
-                Sooraj Ki Bahoon Mein
-              </h4>
-              <p class="text-sm text-gray-400 truncate">Farhan Akhtar</p>
+              <div
+                class="artist-card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-artist="Pritam"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-full w-full aspect-square object-cover"
+                    src="src/assets/images/pritam.jpeg"
+                    alt="Pritam"
+                  />
+                </div>
+                <h4 class="font-semibold text-white">Pritam</h4>
+                <p class="text-sm text-gray-400">Artist</p>
+              </div>
+              <div
+                class="artist-card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-artist="Shreya Ghoshal"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-full w-full aspect-square object-cover"
+                    src="src/assets/images/shreya.jpeg"
+                    alt="Shreya"
+                  />
+                </div>
+                <h4 class="font-semibold text-white">Shreya Ghoshal</h4>
+                <p class="text-sm text-gray-400">Artist</p>
+              </div>
+              <div
+                class="artist-card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-artist="Sunidhi Chauhan"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-full w-full aspect-square object-cover"
+                    src="src/assets/images/Sunidhi.jpg"
+                    alt="Sunidhi Chauhan"
+                  />
+                </div>
+                <h4 class="font-semibold text-white">Sunidhi Chauhan</h4>
+                <p class="text-sm text-gray-400">Artist</p>
+              </div>
+              <div
+                class="artist-card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-artist="A.R Rahman"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-full w-full aspect-square object-cover"
+                    src="src/assets/images/AR.jpg"
+                    alt="KK"
+                  />
+                </div>
+                <h4 class="font-semibold text-white">A.R Rahman</h4>
+                <p class="text-sm text-gray-400">Artist</p>
+              </div>
+              <div
+                class="artist-card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-artist="Javed Ali"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-full w-full aspect-square object-cover"
+                    src="src/assets/images/Javed.jpg"
+                    alt="Javed"
+                  />
+                </div>
+                <h4 class="font-semibold text-white">Javed Ali</h4>
+                <p class="text-sm text-gray-400">Artist</p>
+              </div>
             </div>
+
+            <h2 class="text-2xl font-bold text-white mb-4">
+              Popular albums and singles
+            </h2>
             <div
-              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-audio="src/assets/audio/Dil Se Dil ..mp3"
-              data-artist="Vishal Chandrashekhar"
+              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4"
             >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-lg w-full aspect-square object-cover"
-                  src="src/assets/images/sita ramam.jpeg"
-                  alt="Sita Ramam"
-                />
+              <div 
+                class="card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-audio="src/assets/audio/Safarnama .mp3"
+                data-artist="Lucky Ali"
+              >
+                <div class="mb-4 h-3/4">
+                  <img
+                    class="rounded-lg w-full aspect-square object-cover"
+                    src="src/assets/images/tamasha.jpeg"
+                    alt="Tamasha"
+                  />
+                </div>
+                <h4 class="font-semibold text-white truncate">Safarrnama</h4>
+                <p class="text-sm text-gray-400 truncate">Lucky Ali</p>
               </div>
-              <h4 class="font-semibold text-white truncate">Dil Se Dil</h4>
-              <p class="text-sm text-gray-400 truncate">
-                Vishal Chandrashekhar
-              </p>
-            </div>
-            <div
-              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-audio="src/assets/audio/Kyon.mp3"
-              data-artist="Pritam, Papon, Sunidhi Chauhan"
-            >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-lg w-full aspect-square object-cover"
-                  src="src/assets/images/barfi.jpeg"
-                  alt="Barfi"
-                />
+              <div
+                class="card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-audio="src/assets/audio/Sooraj Ki Bahoon Mein.mp3"
+                data-artist="Farhan Akhtar"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-lg w-full aspect-square object-cover"
+                    src="src/assets/images/znmd2.jpeg"
+                    alt="ZNMD"
+                  />
+                </div>
+                <h4 class="font-semibold text-white truncate">
+                  Sooraj Ki Bahoon Mein
+                </h4>
+                <p class="text-sm text-gray-400 truncate">Farhan Akhtar</p>
               </div>
-              <h4 class="font-semibold text-white truncate">Kyon</h4>
-              <p class="text-sm text-gray-400 truncate">Pritam, Papon, Sunidhi Chauhan</p>
-            </div>
-            <div
-              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-audio="src/assets/audio/Kabira_.mp3"
-              data-artist="Pritam, Arijit Singh"
-            >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-lg w-full aspect-square object-cover"
-                  src="src/assets/images/yjhd.jpg"
-                  alt="yjhd"
-                />
+              <div
+                class="card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-audio="src/assets/audio/Dil Se Dil ..mp3"
+                data-artist="Vishal Chandrashekhar"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-lg w-full aspect-square object-cover"
+                    src="src/assets/images/sita ramam.jpeg"
+                    alt="Sita Ramam"
+                  />
+                </div>
+                <h4 class="font-semibold text-white truncate">Dil Se Dil</h4>
+                <p class="text-sm text-gray-400 truncate">
+                  Vishal Chandrashekhar
+                </p>
               </div>
-              <h4 class="font-semibold text-white truncate">Kabira</h4>
-              <p class="text-sm text-gray-400 truncate">Pritam, Arijit Singh</p>
-            </div>
-            <div
-              class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
-              data-audio="src/assets/audio/Tum_Tak.mp3"
-              data-artist="A.R Rahman, Javed Ali"
-            >
-              <div class="relative mb-4">
-                <img
-                  class="rounded-lg w-full aspect-square object-cover"
-                  src="src/assets/images/ranjhana.jpg"
-                  alt="Ranjhana"
-                />
+              <div
+                class="card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-audio="src/assets/audio/Kyon.mp3"
+                data-artist="Pritam, Papon, Sunidhi Chauhan"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-lg w-full aspect-square object-cover"
+                    src="src/assets/images/barfi.jpeg"
+                    alt="Barfi"
+                  />
+                </div>
+                <h4 class="font-semibold text-white truncate">Kyon</h4>
+                <p class="text-sm text-gray-400 truncate">Pritam, Papon, Sunidhi Chauhan</p>
               </div>
-              <h4 class="font-semibold text-white truncate">Tum Tak</h4>
-              <p class="text-sm text-gray-400 truncate">A.R Rahman, Javed Ali</p>
-            </div>
-            <div
-                class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+              <div
+                class="card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-audio="src/assets/audio/Kabira_.mp3"
+                data-artist="Pritam, Arijit Singh"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-lg w-full aspect-square object-cover"
+                    src="src/assets/images/yjhd.jpg"
+                    alt="yjhd"
+                  />
+                </div>
+                <h4 class="font-semibold text-white truncate">Kabira</h4>
+                <p class="text-sm text-gray-400 truncate">Pritam, Arijit Singh</p>
+              </div>
+              <div
+                class="card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
+                data-audio="src/assets/audio/Tum_Tak.mp3"
+                data-artist="A.R Rahman, Javed Ali"
+              >
+                <div class="relative mb-4">
+                  <img
+                    class="rounded-lg w-full aspect-square object-cover"
+                    src="src/assets/images/ranjhana.jpg"
+                    alt="Ranjhana"
+                  />
+                </div>
+                <h4 class="font-semibold text-white truncate">Tum Tak</h4>
+                <p class="text-sm text-gray-400 truncate">A.R Rahman, Javed Ali</p>
+              </div>
+              <div
+                class="card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
                 data-audio="src/assets/audio/Tum_Tak.mp3"
                 data-artist="A.R Rahman"
               >
@@ -273,9 +280,9 @@
                 </div>
                 <h4 class="font-semibold text-white truncate">Raanjhanaa</h4>
                 <p class="text-sm text-gray-400 truncate">A.R Rahman</p>
-            </div>
-            <div
-                class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+              </div>
+              <div
+                class="card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
                 data-audio="src/assets/audio/Tum_Tak.mp3"
                 data-artist="A.R Rahman, Javed Ali"
               >
@@ -288,9 +295,9 @@
                 </div>
                 <h4 class="font-semibold text-white truncate">Kun Faaya Kun</h4>
                 <p class="text-sm text-gray-400 truncate">A.R Rahman, Javed Ali</p>
-            </div>
-            <div
-                class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+              </div>
+              <div
+                class="card rounded-lg p-4 cursor-pointer transition-colors group bg-white/10 backdrop-blur-md hover:bg-white/20"
                 data-audio="src/assets/audio/Tum_Tak.mp3"
                 data-artist="Pritam, Sunidhi Chauhan"
               >
@@ -303,9 +310,9 @@
                 </div>
                 <h4 class="font-semibold text-white truncate">Kamli</h4>
                 <p class="text-sm text-gray-400 truncate">Pritam, Sunidhi Chauhan</p>
-            </div>
-            <div
-                class="card bg-[#1f1f1f] rounded-lg p-4 hover:bg-[#282828] cursor-pointer transition-colors group"
+              </div>
+              <div
+                class="card rounded-lg p-4  cursor-pointer transition-all group bg-white/10 backdrop-blur-md hover:bg-white/20 "
                 data-audio="src/assets/audio/Tum_Tak.mp3"
                 data-artist="Pritam, Arijit Singh, Shreya Ghoshal"
               >
@@ -318,39 +325,40 @@
                 </div>
                 <h4 class="font-semibold text-white truncate">Tum Kya Mile</h4>
                 <p class="text-sm text-gray-400 truncate">Pritam, Arijit Singh, Shreya Ghoshal</p>
-            </div>
-          </div>
-
-          <div class="border-t border-gray-800 pt-8 px-6 pb-6">
-            <div class="flex justify-between items-start">
-              <div class="space-y-3">
-                <h5 class="text-white font-semibold">Music Player</h5>
-                <p id="about-link"
-                class="text-sm text-gray-400 hover:text-white cursor-pointer">
-                About
-              </p>
-              <p id="support-link"
-                class="text-sm text-gray-400 hover:text-white cursor-pointer">
-                Support
-              </p>
               </div>
-              <div class="flex flex-col items-center gap-3">
-                <h5 class="font-semibold text-white">Follow Us</h5>
-                <div class="flex gap-4">
-                  <div class="w-10 h-10 rounded-full bg-[#1f1f1f] hover:bg-[#282828] flex items-center justify-center cursor-pointer">
-                    <img src="src/assets/svgs/insta.svg" class="h-5" />
-                  </div>
-                  <div class="w-10 h-10 rounded-full bg-[#1f1f1f] hover:bg-[#282828] flex items-center justify-center cursor-pointer">
-                    <img src="src/assets/svgs/twitter.svg" class="h-5" />
-                  </div>
-                  <div class="w-10 h-10 rounded-full bg-[#1f1f1f] hover:bg-[#282828] flex items-center justify-center cursor-pointer">
-                    <img src="src/assets/svgs/face.svg" class="h-5" />
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 px-6 mb-8">
+              <div class="flex justify-between items-start">
+                <div class="space-y-3">
+                  <h5 class="text-white font-semibold">Music Player</h5>
+                  <p id="about-link"
+                    class="text-sm text-gray-400 hover:text-white cursor-pointer">
+                    About
+                  </p>
+                  <p id="support-link"
+                    class="text-sm text-gray-400 hover:text-white cursor-pointer">
+                    Support
+                  </p>
+                </div>
+                <div class="flex flex-col items-center gap-3">
+                  <h5 class="font-semibold text-white">Follow Us</h5>
+                  <div class="flex gap-4">
+                    <div class="w-10 h-10 rounded-full bg-[#121212] hover:bg-[#1f1f1f] flex items-center justify-center cursor-pointer">
+                      <img src="src/assets/svgs/insta.svg" class="h-5" />
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#121212] hover:bg-[#1f1f1f] flex items-center justify-center cursor-pointer">
+                      <img src="src/assets/svgs/twitter.svg" class="h-5" />
+                    </div>
+                    <div class="w-10 h-10 rounded-full bg-[#121212] hover:bg-[#1f1f1f] flex items-center justify-center cursor-pointer">
+                      <img src="src/assets/svgs/face.svg" class="h-5" />
+                    </div>
                   </div>
                 </div>
               </div>
-          </div>
-            <div class="mt-8 text-xs text-gray-500">
-              © Music Player 2025
+              <div class="mt-8 mb-6 text-xs text-gray-500">
+                © Music Player 2025
+              </div>
             </div>
           </div>
         </div>
@@ -359,7 +367,7 @@
 
     
     <!-- Music Player Bar -->
-    <div id="player-bar" class="fixed bottom-0 left-0 right-0 text-white px-5 py-1.5 min-w-[600px] player-progress-wrapper flex flex-row gap-1 z-50 shadow-lg hidden sm:flex-row flex-col" style="background-color: #29292a">
+    <div id="player-bar" class="fixed bottom-0 left-0 right-0 text-white px-5 py-1.5 min-w-[600px] player-progress-wrapper flex flex-row gap-1 z-50 shadow-lg hidden sm:flex-row flex-col bg-black">
       <div class="flex w-auto justify-center items-center gap-4">
         <img id="player-image" src="" alt="" class="w-12 h-12 rounded object-cover flex-shrink-0"/>
         <div class="flex-shrink-0 w-44 min-w-[120px]">
@@ -379,14 +387,14 @@
             </svg>
           </button>
           <button id="player-prev" class="bg-none border-none" aria-label="Previous">
-            <img src="src//assets/svgs/previous.svg" alt="Previous" class="w-5 h-5" />
+            <img src="src//assets/svgs/previous.svg" alt="Previous" class="w-5 h-6" />
           </button>
           <button id="player-play" class="bg-none border-none" aria-label="Play/Pause">
-            <img src="src//assets/svgs/play.svg" alt="Play" class="icon-play w-5 h-5" />
-            <img src="src/assets/svgs/pause.svg" alt="Pause" class="icon-pause w-5 h-5 hidden"/>
+            <img src="src//assets/svgs/play.svg" alt="Play" class="icon-play w-6 h-6" />
+            <img src="src/assets/svgs/pause.svg" alt="Pause" class="icon-pause w-6 h-6 hidden"/>
           </button>
           <button id="player-next" class="bg-none border-none" aria-label="Next">
-            <img src="src//assets/svgs/next.svg" alt="Next" class="w-5 h-5" />
+            <img src="src//assets/svgs/next.svg" alt="Next" class="w-5 h-6" />
           </button>
           
           <button id="player-shuffle" aria-label="Shuffle">
@@ -429,6 +437,7 @@
 
 <h2>Features Section</h2>
   <ul class="text-gray-400 space-y-2 mb-6">
+    <li>• Search Functionality</li>
     <li>• Play / Pause / Next / Previous</li>
     <li>• Shuffle & Repeat</li>
     <li>• Volume Control</li>

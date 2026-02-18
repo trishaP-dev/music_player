@@ -9,10 +9,13 @@ A browser-based music player built using **HTML**, **Tailwind CSS**, and **JavaS
 
 ## ✨ Features
 
+- 🔍 Search Functionality
 - ▶️ Play and ⏸ Pause functionality  
 - ⏭ Next and ⏮ Previous song controls  
 - 🎚 Seek bar with real-time progress tracking  
+- 🔊 Volume control
 - 🕒 Displays current time and total duration  
+- Artist filtering
 - 🎧 Smooth and responsive UI  
 
 ---
@@ -29,18 +32,18 @@ A browser-based music player built using **HTML**, **Tailwind CSS**, and **JavaS
 
 1. Clone the repository:
     bash
- ```
+```
     git clone https://github.com/your-username/music_player.git
 ```
 2. Navigate to the project folder:
     cd music_player
 
 3. Install dependencies
-   ```
+```
     npm install
-   ```
+```
 4.Start Tailwind CSS watcher:
 ```
-  npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch
+    npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch
 ```
 5.Open index.html in your browser.

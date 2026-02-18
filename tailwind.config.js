@@ -5,7 +5,7 @@ content: ["./index.html", "./src/**/*.{html,js}"],
   theme: {
     extend: {
       colors: {
-        bg: '#18181b',
+        bg: '#0b132b',
         primary: '#f97316',
         site_text: '#fafafa',
         muted: '#71717a'

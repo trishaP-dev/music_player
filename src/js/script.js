@@ -24,6 +24,7 @@ const aboutLink = document.getElementById("about-link");
 const supportLink = document.getElementById("support-link");
 const backHome = document.getElementById("back-home");
 const backHome2 = document.getElementById("back-home-2");
+const searchInput = document.getElementById("search-input");
 
 let playlist = [];
 let lastVolume = 1;
@@ -73,6 +74,32 @@ function togglePlay() {
 }
 
 buildPlaylist();
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase().trim();
+
+  if (query === "") {
+    activeSongList = playlist;
+    playlist.forEach(song => {
+      song.card.style.display = "block";
+    });
+    return;
+  }
+ const filtered = playlist.filter(song =>
+    song.title.toLowerCase().includes(query) ||
+    song.artist.toLowerCase().includes(query)
+  );
+  activeSongList = filtered;
+
+  playlist.forEach(song => {
+    if (filtered.includes(song)) {
+      song.card.style.display = "block";
+    } else {
+      song.card.style.display = "none";
+    }
+  });
+  currentTrackIndex = 0;
+});
 
 artistCards.forEach(card => {
   card.addEventListener('click', () => {

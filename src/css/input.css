@@ -99,7 +99,9 @@
       color: #9ca3af; 
     }
     .control-active .player-control-icon {
-        color: #c58422; 
+        color: #b64a4a; 
+        /* color: #c58422;  */
+        /* color: #c52222;  */
     }
 
     /* Force white slider */

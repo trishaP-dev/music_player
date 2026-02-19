@@ -3,7 +3,7 @@
 @tailwind utilities;
 /* npx tailwindcss -i ./src/css/input.css -o ./src/css/output.css --watch */
 
-      @media (max-width: 640px) {
+      /* @media (max-width: 640px) {
         .sidebar-mobile {
           position: fixed;
           left: 0;
@@ -35,7 +35,7 @@
        #player-bar .player-progress-wrapper {
           min-width: 0 !important;
         }
-      }
+      } */
 
       /* Remove default look */
     input[type="range"] {

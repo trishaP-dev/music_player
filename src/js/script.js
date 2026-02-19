@@ -27,6 +27,10 @@ const backHome2 = document.getElementById("back-home-2");
 const searchInput = document.getElementById("search-input");
 const createPlaylistBtn = document.getElementById("create-playlist-btn");
 const playlistContainer = document.getElementById("playlist-container");
+const artistSection = document.getElementById("artist-section");
+const sidebar = document.getElementById("sidebar");
+const sidebarToggle = document.getElementById("sidebar-toggle");
+const sidebarOverlay = document.getElementById("sidebar-overlay");
 
 let userPlaylists = JSON.parse(localStorage.getItem("userPlaylists")) || [];
 let activeSongList = [];
@@ -287,14 +291,19 @@ playerVolumeBtn.addEventListener('click', () => {
 homeBtn.addEventListener('click', () => {
   activeSongList = playlist;
   activeUserPlaylist = null;
-  isEditMode = false; 
+  isEditMode = false;
   currentTrackIndex = -1;
 
   document.getElementById("section-heading").textContent = "Popular artists";
 
+  artistSection.classList.remove("hidden");
+
   document.querySelectorAll('.card').forEach(card => {
     card.style.display = "block";
-  });
+
+  const addBtn = card.querySelector(".add-to-playlist");
+  if (addBtn) addBtn.classList.add("hidden");
+});
 
   renderPlaylists();
 });
@@ -366,17 +375,9 @@ function renderPlaylists() {
       renderPlaylists();
     });
 
-    // div.querySelector(".edit-playlist").addEventListener("click", (e) => {
-    //   e.stopPropagation();
-    //   activeUserPlaylist = pl;
-    //   isEditMode = true;
-    //   showUserPlaylist(pl);
-    // });
-
     div.querySelector(".edit-playlist").addEventListener("click", (e) => {
   e.stopPropagation();
 
-  // If already active and in edit mode → Rename
   if (activeUserPlaylist && activeUserPlaylist.id === pl.id && isEditMode) {
 
     const newName = prompt("Rename playlist:", pl.name);
@@ -389,7 +390,6 @@ function renderPlaylists() {
     }
 
   } else {
-    // Otherwise enter edit mode
     activeUserPlaylist = pl;
     isEditMode = true;
     showUserPlaylist(pl);
@@ -405,12 +405,12 @@ function renderPlaylists() {
       renderPlaylists();
     });
 
-  
     playlistContainer.appendChild(div);
   });
 }  
 
 function showUserPlaylist(pl) {
+  artistSection.classList.add("hidden");
   activeUserPlaylist = pl;
   document.getElementById("section-heading").textContent = pl.name;
 
@@ -483,3 +483,15 @@ function savePlaylists() {
   localStorage.setItem("userPlaylists", JSON.stringify(userPlaylists));
 }
 renderPlaylists();
+
+// Open sidebar
+sidebarToggle.addEventListener("click", () => {
+  sidebar.classList.remove("-translate-x-full");
+  sidebarOverlay.classList.remove("hidden");
+});
+
+// Close when clicking overlay
+sidebarOverlay.addEventListener("click", () => {
+  sidebar.classList.add("-translate-x-full");
+  sidebarOverlay.classList.add("hidden");
+});

@@ -34,6 +34,27 @@ A browser-based music player built using **HTML**, **Tailwind CSS**, and **JavaS
 
 ---
 
+music_player/
+│
+├── index.html
+├── package.json
+│
+├── src/
+│   ├── css/
+│   │   ├── input.css
+│   │   └── output.css
+│   │
+│   ├── js/
+│   │   └── script.js
+│   │
+│   └── assets/
+│       ├── audio/
+│       ├── images/
+│       ├── svgs/
+│       └── favicon.ico
+
+---
+
 ## 🚀 How to Run Locally
 
 1. Clone the repository:
@@ -47,8 +68,8 @@ A browser-based music player built using **HTML**, **Tailwind CSS**, and **JavaS
 ```
     npm install
 ```
-4.Start Tailwind CSS watcher:
+4. Start Tailwind CSS watcher:
 ```
     npx tailwindcss -i ./src/styles/input.css -o ./src/styles/output.css --watch
 ```
-5.Open index.html in your browser.
+5. Open index.html in your browser.

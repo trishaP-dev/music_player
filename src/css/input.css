@@ -3,117 +3,83 @@
 @tailwind utilities;
 /* npx tailwindcss -i ./src/css/input.css -o ./src/css/output.css --watch */
 
-      /* @media (max-width: 640px) {
-        .sidebar-mobile {
-          position: fixed;
-          left: 0;
-          top: 56px;
-          width: 100vw !important;
-          height: calc(100vh - 56px);
-          z-index: 50;
-          background: #121212;
-          overflow-y: auto;
-          transform: translateX(-100%);
-          transition: transform 0.3s;
-        }
-        .sidebar-mobile.active {
-          transform: translateX(0);
-        }
-        .main-mobile {
-          width: 100vw !important;
-          padding: 0.5rem !important;
-        }
-        #player-bar {
-          flex-direction: column !important;
-          gap: 0.5rem !important;
-          padding: 0.5rem !important;
-        }
-        #player-bar .flex-col {
-          min-width: 0 !important;
-          width: 100% !important;
-        }
-       #player-bar .player-progress-wrapper {
-          min-width: 0 !important;
-        }
-      } */
+/* Remove default look */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
 
-      /* Remove default look */
-    input[type="range"] {
-      -webkit-appearance: none;
-      appearance: none;
-      background: transparent;
-      cursor: pointer;
-    }
+/* Track */
+input[type="range"]::-webkit-slider-runnable-track {
+  background: #ffffff;
+  height: 3px;
+  border-radius: 3px;
+}
 
-    /* Track */
-    input[type="range"]::-webkit-slider-runnable-track {
-      background: #ffffff;
-      height: 3px;
-      border-radius: 3px;
-    }
+/* Thumb */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border-radius: 50%;
+  margin-top: -4px;
+  cursor: pointer;
+}
 
-    /* Thumb */
-    input[type="range"]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 10px;
-      height: 10px;
-      background: #ffffff;
-      border-radius: 50%;
-      margin-top: -4px;
-      cursor: pointer;
-    }
+/* Firefox */
+input[type="range"]::-moz-range-track {
+  background: #ffffff;
+  height: 3px;
+  border-radius: 3px;
+}
 
-    /* Firefox */
-    input[type="range"]::-moz-range-track {
-      background: #ffffff;
-      height: 3px;
-      border-radius: 3px;
-    }
+input[type="range"]::-moz-range-thumb {
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border: none;
+  border-radius: 50%;
+}
 
-    input[type="range"]::-moz-range-thumb {
-      width: 10px;
-      height: 10px;
-      background: #ffffff;
-      border: none;
-      border-radius: 50%;
-    }
+.custom-scroll::-webkit-scrollbar {
+  width: 10px;
+}
 
-    .custom-scroll::-webkit-scrollbar {
-      width: 10px;
-    }
+.custom-scroll::-webkit-scrollbar-track {
+  background: #000;
+}
 
-    .custom-scroll::-webkit-scrollbar-track {
-      background: #000;
-    }
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #3c3b3b;
+}
 
-    .custom-scroll::-webkit-scrollbar-thumb {
-      background: #3c3b3b;
-    }
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #7b7878;
+}
 
-    .custom-scroll::-webkit-scrollbar-thumb:hover {
-      background: #7b7878;
-    }
-      
-    .player-control-icon {
-      color: #9ca3af; 
-    }
-    .control-active .player-control-icon {
-        color: #b64a4a; 
-        /* color: #c58422;  */
-    }
+.player-control-icon {
+  color: #9ca3af;
+}
+.control-active .player-control-icon {
+  color: #b64a4a;
+  /* color: #c58422;  */
+}
 
-    #player-progress,
-    #player-volume {
-      color: white !important;
-    }
+#player-progress,
+#player-volume {
+  color: white !important;
+}
 
-    #player-progress::-webkit-slider-runnable-track,
-    #player-volume::-webkit-slider-runnable-track {
-      background-color: white !important;
-    }
+#player-progress::-webkit-slider-runnable-track,
+#player-volume::-webkit-slider-runnable-track {
+  background-color: white !important;
+}
 
-    #player-progress::-webkit-slider-thumb,
-    #player-volume::-webkit-slider-thumb {
-      background-color: white !important;
-    }
+#player-progress::-webkit-slider-thumb,
+#player-volume::-webkit-slider-thumb {
+  background-color: white !important;
+}

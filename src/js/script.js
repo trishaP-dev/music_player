@@ -425,8 +425,10 @@ function showUserPlaylist(pl) {
 
       addBtn.classList.remove("hidden"); 
 
+      addBtn.classList.remove("bg-green-600");
       if (pl.songs.includes(audioSrc)) {
         addBtn.textContent = "✓";
+        addBtn.classList.add("bg-green-600");
       } else {
         addBtn.textContent = "+";
       }
@@ -442,6 +444,8 @@ function showUserPlaylist(pl) {
 
       const addBtn = card.querySelector(".add-to-playlist");
       addBtn.classList.add("hidden"); 
+      addBtn.classList.remove("bg-green-600"); 
+      addBtn.textContent = "+";                 
     });
 
     activeSongList.forEach(song => {

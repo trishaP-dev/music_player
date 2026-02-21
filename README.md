@@ -34,6 +34,8 @@ A browser-based music player built using **HTML**, **Tailwind CSS**, and **JavaS
 
 ---
 
+# Project Structure
+```
 music_player/
 │
 ├── index.html
@@ -52,6 +54,7 @@ music_player/
 │       ├── images/
 │       ├── svgs/
 │       └── favicon.ico
+```
 
 ---
 

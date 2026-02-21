@@ -149,15 +149,11 @@ document.querySelectorAll('.card').forEach(card => {
 
     if (index === -1) return;
 
-    if (currentTrackIndex === index) {
-      togglePlay();
-    } else {
-      loadTrack(index);
-      audio.play().catch(e => console.warn('play failed:', e));
-    }
+    // 🔥 Always load and play
+    loadTrack(index);
+    audio.play().catch(e => console.warn('play failed:', e));
   });
 });
-
 playerPlay.addEventListener('click', togglePlay);
 
 playerPrev.addEventListener('click', () => {
